@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
+import { getRuntimeConfig } from "@/utils/runtimeConfig";
 
 import { Item } from "@/lib/definition";
 import HelperTooltip from "../HelperTooltip";
@@ -22,7 +23,7 @@ export default function FrameFieldSelector({ values, setSelectedValues }: FrameF
             setLoading(true);
             setError(null);
             try {
-                const res = await fetch(`${process.env.NEXT_PUBLIC_URL_BACKEND_SERVER}/api/v1/frame/fields`);
+                const res = await fetch(`${getRuntimeConfig().NEXT_PUBLIC_URL_BACKEND_SERVER}/api/v1/frame/fields`);
                 if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
                 const data: string[] = await res.json();
 

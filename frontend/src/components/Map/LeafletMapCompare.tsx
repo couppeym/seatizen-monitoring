@@ -7,6 +7,8 @@ import "leaflet-fullscreen";
 import "leaflet-measure";
 import "leaflet-easyprint";
 
+import { getRuntimeConfig } from "@/utils/runtimeConfig";
+
 import { COGServerResponse, Deposit } from "@/lib/definition";
 import { load_edna_data } from "@/lib/edna_functions";
 import { bindMapMoveToUrl, bindMapRequestPredOrDepthAtClick, getInitialView } from "@/utils/mapUtils";
@@ -169,7 +171,7 @@ export default function LeafletMapCompare({
         // Append the left layers.
         const left_layers = [];
         for (const layer of leftUrls) {
-            const tile = L.tileLayer(`${process.env.NEXT_PUBLIC_URL_COG_SERVER}${layer.url}?asv=${withASV}`, {
+            const tile = L.tileLayer(`${getRuntimeConfig().NEXT_PUBLIC_URL_COG_SERVER}${layer.url}?asv=${withASV}`, {
                 attribution: layer.attribution,
                 maxZoom: 28,
             }).addTo(map);
@@ -186,7 +188,7 @@ export default function LeafletMapCompare({
         // Append the right layers.
         const right_layers = [];
         for (const layer of rightUrls) {
-            const tile2 = L.tileLayer(`${process.env.NEXT_PUBLIC_URL_COG_SERVER}${layer.url}?asv=${withASV}`, {
+            const tile2 = L.tileLayer(`${getRuntimeConfig().NEXT_PUBLIC_URL_COG_SERVER}${layer.url}?asv=${withASV}`, {
                 attribution: layer.attribution,
                 maxZoom: 28,
             }).addTo(map);

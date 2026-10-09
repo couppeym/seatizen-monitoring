@@ -1,4 +1,5 @@
 "use client";
+import { getRuntimeConfig } from "@/utils/runtimeConfig";
 
 import { useEffect, useState } from "react";
 
@@ -45,7 +46,7 @@ export default function LegendPanel() {
     useEffect(() => {
         async function fetchLegend() {
             try {
-                const res = await fetch(`${process.env.NEXT_PUBLIC_URL_COG_SERVER}/get-all-legend`);
+                const res = await fetch(`${getRuntimeConfig().NEXT_PUBLIC_URL_COG_SERVER}/get-all-legend`);
                 if (!res.ok) throw new Error("Failed to fetch legend");
                 const legends: LegendGroup[] = await res.json();
                 setLegends(legends);

@@ -1,6 +1,8 @@
 import { COGServerResponse, DEFAULT_CENTER, DEFAULT_ZOOM } from "@/lib/definition";
 import L from "leaflet";
 import { RefObject } from "react";
+import { getRuntimeConfig } from "@/utils/runtimeConfig";
+
 
 export function bindMapMoveToUrl(map: L.Map) {
     const handler = () => {
@@ -46,7 +48,7 @@ export function bindMapRequestPredOrDepthAtClick(
         const { lat, lng } = event.latlng;
 
         const response = await fetch(
-            `${process.env.NEXT_PUBLIC_URL_COG_SERVER}/depthOrprediction?lon=${lng}&lat=${lat}${request_years}`
+            `${getRuntimeConfig().NEXT_PUBLIC_URL_COG_SERVER}/depthOrprediction?lon=${lng}&lat=${lat}${request_years}`
         );
         const data = await response.json();
 

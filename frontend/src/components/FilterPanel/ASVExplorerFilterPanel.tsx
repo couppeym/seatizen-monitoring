@@ -3,6 +3,7 @@ import YearSelector from "@/components/SelectorExplorer/YearsSelector";
 import { useEffect, useState } from "react";
 import { COGFiltersASV, SpecieWithColor } from "@/lib/definition";
 import SpecieSelector from "@/components/SelectorExplorer/SpecieSelector";
+import { getRuntimeConfig } from "@/utils/runtimeConfig";
 
 export default function ASVExplorerFilterPanel() {
     const { filters, setFilters } = useASVExplorerFilters();
@@ -14,7 +15,7 @@ export default function ASVExplorerFilterPanel() {
     useEffect(() => {
         async function fetchFilters() {
             try {
-                const res = await fetch(`${process.env.NEXT_PUBLIC_URL_COG_SERVER}/filters-asv`);
+                const res = await fetch(`${getRuntimeConfig().NEXT_PUBLIC_URL_COG_SERVER}/filters-asv`);
                 if (!res.ok) throw new Error("Failed to fetch filters");
                 const filters: COGFiltersASV = await res.json();
 

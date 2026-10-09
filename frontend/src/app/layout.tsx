@@ -7,6 +7,8 @@ import "@/app/ui/edna-tooltip.css";
 import "@/app/ui/gcrmn-tooltip.css";
 import "@/app/ui/comparison-tooltip.css";
 
+import Script from "next/script";
+
 export const metadata: Metadata = {
     title: {
         template: "%s | Seatizen Monitoring",
@@ -26,6 +28,7 @@ export default function RootLayout({
     return (
         <html lang="fr">
             <body className={`${outfit.className} antialiased`}>
+                <Script src="/runtime-config.js" strategy="beforeInteractive" />
                 {children}
                 <p className="hidden"> Made by Victor ILLIEN - https://github.com/Gouderg</p>
             </body>

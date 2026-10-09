@@ -1,4 +1,5 @@
 "use client";
+import { getRuntimeConfig } from "@/utils/runtimeConfig";
 
 import { useEffect, useState } from "react";
 
@@ -28,7 +29,7 @@ export default function ASVExplorerPage() {
         params.append("year", year);
         params.append("specie", specie);
 
-        const res = await fetch(`${process.env.NEXT_PUBLIC_URL_COG_SERVER}/get-layer?${params.toString()}`);
+        const res = await fetch(`${getRuntimeConfig().NEXT_PUBLIC_URL_COG_SERVER}/get-layer?${params.toString()}`);
         if (!res.ok) throw new Error(`HTTP ${res.status}, Cannot retrieve information for left layer`);
         const layer: COGServerResponse = await res.json();
 
@@ -44,7 +45,7 @@ export default function ASVExplorerPage() {
         const params = new URLSearchParams();
         params.append("year", year);
         const res = await fetch(
-            `${process.env.NEXT_PUBLIC_URL_BACKEND_SERVER}/api/v1/deposits/footprint?${params.toString()}`
+            `${getRuntimeConfig().NEXT_PUBLIC_URL_BACKEND_SERVER}/api/v1/deposits/footprint?${params.toString()}`
         );
 
         if (!res.ok) throw new Error(`HTTP ${res.status}, Cannot retrieve information for left layer`);
@@ -55,7 +56,7 @@ export default function ASVExplorerPage() {
     useEffect(() => {
         async function fetchLayers() {
             try {
-                const res = await fetch(`${process.env.NEXT_PUBLIC_URL_COG_SERVER}/layers`);
+                const res = await fetch(`${getRuntimeConfig().NEXT_PUBLIC_URL_COG_SERVER}/layers`);
                 if (!res.ok) throw new Error("Failed to fetch layers");
                 const layers: COGServerResponse[] = await res.json();
                 // Convert to Map for fast access

@@ -1,4 +1,5 @@
 "use client";
+import { getRuntimeConfig } from "@/utils/runtimeConfig";
 
 import MapExport from "@/components/Map/DynamicLeafletMapExport";
 import ExporterFilterPanel from "@/components/FilterPanel/ExporterFilterPanel";
@@ -28,7 +29,7 @@ export default function ExporterPage() {
         setError(null);
 
         try {
-            const res = await fetch(`${process.env.NEXT_PUBLIC_URL_BACKEND_SERVER}/api/v1/export/save-job`, {
+            const res = await fetch(`${getRuntimeConfig().NEXT_PUBLIC_URL_BACKEND_SERVER}/api/v1/export/save-job`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ filters, polygons }), // send your data
@@ -38,7 +39,7 @@ export default function ExporterPage() {
 
             const { job_id } = await res.json();
 
-            window.open(`${process.env.NEXT_PUBLIC_URL_BACKEND_SERVER}/api/v1/export/download-csv?job_id=${job_id}`);
+            window.open(`${getRuntimeConfig().NEXT_PUBLIC_URL_BACKEND_SERVER}/api/v1/export/download-csv?job_id=${job_id}`);
         } catch (err) {
             setError((err as Error).message);
         }
@@ -56,7 +57,7 @@ export default function ExporterPage() {
                 if (filters.endDate) params.append("end_date", filters.endDate);
 
                 const res = await fetch(
-                    `${process.env.NEXT_PUBLIC_URL_BACKEND_SERVER}/api/v1/deposits/filter?${params.toString()}`
+                    `${getRuntimeConfig().NEXT_PUBLIC_URL_BACKEND_SERVER}/api/v1/deposits/filter?${params.toString()}`
                 );
                 if (!res.ok) throw new Error(`HTTP ${res.status}`);
                 const data = await res.json();

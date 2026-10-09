@@ -1,4 +1,6 @@
 "use client";
+import { getRuntimeConfig } from "@/utils/runtimeConfig";
+
 import React, { useState, useEffect } from "react";
 import {
     Database,
@@ -65,7 +67,7 @@ export default function Page() {
     useEffect(() => {
         async function fetchLightStats() {
             try {
-                const res = await fetch(`${process.env.NEXT_PUBLIC_URL_BACKEND_SERVER}/api/v1/stats/light`);
+                const res = await fetch(`${getRuntimeConfig().NEXT_PUBLIC_URL_BACKEND_SERVER}/api/v1/stats/light`);
                 if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
                 const data: LightStats = await res.json();
 
@@ -76,7 +78,7 @@ export default function Page() {
         }
         async function fetchHeavyStats() {
             try {
-                const res = await fetch(`${process.env.NEXT_PUBLIC_URL_BACKEND_SERVER}/api/v1/stats/heavy`);
+                const res = await fetch(`${getRuntimeConfig().NEXT_PUBLIC_URL_BACKEND_SERVER}/api/v1/stats/heavy`);
                 if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
                 const data: HeavyStats = await res.json();
 

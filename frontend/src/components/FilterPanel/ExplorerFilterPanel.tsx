@@ -5,6 +5,7 @@ import { useExplorerFilters } from "@/context/ExplorerFilterContext";
 import FancyMultiSelect from "../Controls/FancyMultiSelect";
 import AccordionComponent from "../Accordion";
 import { SquareStack } from "lucide-react";
+import { getRuntimeConfig } from "@/utils/runtimeConfig";
 
 export default function ExplorerFilterPanel() {
     const router = useRouter();
@@ -18,7 +19,7 @@ export default function ExplorerFilterPanel() {
     useEffect(() => {
         async function fetchLayers() {
             try {
-                const res = await fetch(`${process.env.NEXT_PUBLIC_URL_COG_SERVER}/layers`);
+                const res = await fetch(`${getRuntimeConfig().NEXT_PUBLIC_URL_COG_SERVER}/layers`);
                 if (!res.ok) throw new Error("Failed to fetch layers");
                 const layers: COGServerResponse[] = await res.json();
                 setLayers(layers);

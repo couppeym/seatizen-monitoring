@@ -1,4 +1,5 @@
 "use client";
+import { getRuntimeConfig } from "@/utils/runtimeConfig";
 
 import { useEffect, useMemo, useState } from "react";
 
@@ -22,7 +23,7 @@ export default function PlatformSelector({ values, setSelectedValues }: Platform
             setLoading(true);
             setError(null);
             try {
-                const res = await fetch(`${process.env.NEXT_PUBLIC_URL_BACKEND_SERVER}/api/v1/deposits/search`);
+                const res = await fetch(`${getRuntimeConfig().NEXT_PUBLIC_URL_BACKEND_SERVER}/api/v1/deposits/search`);
                 if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
                 const data: DepositSearchTerms = await res.json();
 

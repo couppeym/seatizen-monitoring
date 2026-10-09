@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import HelperTooltip from "../HelperTooltip";
 import CustomSelect from "../CustomSelect";
 import { DEFAULT_MODEL_ID, Item } from "@/lib/definition";
+import { getRuntimeConfig } from "@/utils/runtimeConfig";
 
 type MlModel = {
     id: number;
@@ -23,7 +24,7 @@ export default function ModelSelector({ onSelectModel }: ModelSelectorProps) {
     useEffect(() => {
         async function fetchModels() {
             try {
-                const res = await fetch(`${process.env.NEXT_PUBLIC_URL_BACKEND_SERVER}/api/v1/ml_model/`);
+                const res = await fetch(`${getRuntimeConfig().NEXT_PUBLIC_URL_BACKEND_SERVER}/api/v1/ml_model/`);
                 if (!res.ok) {
                     throw new Error(`HTTP error! status: ${res.status}`);
                 }

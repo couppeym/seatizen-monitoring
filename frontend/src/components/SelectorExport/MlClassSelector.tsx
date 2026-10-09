@@ -1,4 +1,5 @@
 "use client";
+import { getRuntimeConfig } from "@/utils/runtimeConfig";
 
 import { useEffect, useMemo, useState } from "react";
 
@@ -30,7 +31,7 @@ export default function ClassSelector({ modelId, selected_class_ids, onSelectCla
             setError(null);
             try {
                 const res = await fetch(
-                    `${process.env.NEXT_PUBLIC_URL_BACKEND_SERVER}/api/v1/ml_class/model/${modelId}`
+                    `${getRuntimeConfig().NEXT_PUBLIC_URL_BACKEND_SERVER}/api/v1/ml_class/model/${modelId}`
                 );
                 if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
                 const data: MlClass[] = await res.json();
