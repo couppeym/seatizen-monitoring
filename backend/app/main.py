@@ -7,6 +7,7 @@ from starlette.middleware.cors import CORSMiddleware
 load_dotenv()
 
 ENV_TYPE = os.getenv("ENV_TYPE")
+ALLOWED_CORS_ORIGIN: list[str] = os.getenv('ALLOWED_CORS_ORIGIN', '')
 
 if ENV_TYPE == "DEV":
 
@@ -28,7 +29,8 @@ else :
 
     app.add_middleware(
         CORSMiddleware,
-        allow_origins=["http://seatizenmonitoring.ifremer.re", "https://seatizenmonitoring.ifremer.re", "http://localhost:8053", "http://ifremer.re:8053"],
+        allow_origins=\
+            ALLOWED_CORS_ORIGIN.split(',') if ALLOWED_CORS_ORIGIN else [],
         allow_credentials=False,
         allow_methods=["GET", "OPTIONS", "POST"],
         allow_headers=["*"]
